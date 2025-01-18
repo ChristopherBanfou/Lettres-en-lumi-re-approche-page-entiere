@@ -1,0 +1,15 @@
+names:
+- body
+- marge
+- pageNumber
+- signature
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: pfe1-qai05
+  url: https://universe.roboflow.com/pfe-uh2gz/pfe1-qai05/dataset/10
+  version: 10
+  workspace: pfe-uh2gz
+test: ../test/images
+train: ../train/images
+val: ../valid/images
