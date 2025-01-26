@@ -2,6 +2,7 @@
 !pip install roboflow
 !pip install ultralytics
 !pip install fpdf2
+!pip install python-docx
 
 
 # Importer le dataset
@@ -246,5 +247,39 @@ def generate_pdf_from_json(json_file, output_file):
 # Remplacez 'FreeSerif.ttf' par le chemin de votre fichier de police et assurez-vous d'avoir les versions bold et italic si nécessaire
 generate_pdf_from_json('nouveau_fichier.json', 'output.pdf')
 
+### Générer un document Word à partir d'un fichier JSON
+ 
+from docx import Document
+import json
+
+def generate_word_from_json(json_file, output_file):
+    # Charger les données JSON
+    with open(json_file, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    # Créer un document Word
+    document = Document()
+
+    # Ajouter un titre principal
+    document.add_heading('Traduction du JSON', level=1)
+
+    # Parcourir les sections
+    for section in data.get("sections", []):
+        # Ajouter le titre de la section
+        section_name = section.get("name", "Section sans titre")
+        document.add_heading(section_name, level=2)
+
+        # Ajouter les labels comme contenu
+        for shape in section.get("shapes", []):
+            label = shape.get("label", "Label manquant")
+            document.add_paragraph(label)
+
+    # Sauvegarder le fichier Word
+    document.save(output_file)
+    print(f"Word généré avec succès : {output_file}")
+
+# Exemple d'utilisation
+# Remplacez 'nouveau_fichier.json' par le chemin de votre fichier JSON d'entrée
+generate_word_from_json('nouveau_fichier.json', 'output.docx')
 
 
